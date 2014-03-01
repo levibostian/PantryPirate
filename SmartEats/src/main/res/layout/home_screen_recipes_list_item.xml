@@ -32,6 +32,8 @@
             android:text="Recipe Title"
             android:textColor="@android:color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:typeface="sans"
+            android:textSize="18sp"/>
     </LinearLayout>
 </RelativeLayout>
