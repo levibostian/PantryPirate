@@ -1,9 +1,9 @@
-package com.levibostian.smarteats.model;
+package com.levibostian.pantrypirate.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import com.levibostian.smarteats.R;
+import com.levibostian.pantrypirate.R;
 
 import java.util.ArrayList;
 

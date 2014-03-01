@@ -1,19 +1,14 @@
-package com.levibostian.smarteats.fragment;
+package com.levibostian.pantrypirate.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
-import com.levibostian.smarteats.R;
-import com.levibostian.smarteats.adapter.HomeScreenRecipesAdapter;
-import com.levibostian.smarteats.model.RecipesModel;
-import org.w3c.dom.Text;
-
-import java.util.List;
+import com.levibostian.pantrypirate.R;
+import com.levibostian.pantrypirate.adapter.HomeScreenRecipesAdapter;
+import com.levibostian.pantrypirate.model.RecipesModel;
 
 public class MainFragment extends Fragment {
     private ListView mRecipeList;

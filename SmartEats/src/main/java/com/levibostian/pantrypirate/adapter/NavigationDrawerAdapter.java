@@ -1,4 +1,4 @@
-package com.levibostian.smarteats.adapter;
+package com.levibostian.pantrypirate.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import com.levibostian.smarteats.R;
+import com.levibostian.pantrypirate.R;
 
 public class NavigationDrawerAdapter extends ArrayAdapter<String> {
     private Activity mContext;

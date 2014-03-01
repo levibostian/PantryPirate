@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.levibostian.smarteats.view;
+package com.levibostian.pantrypirate.view;
 
 import java.lang.reflect.Field;
 

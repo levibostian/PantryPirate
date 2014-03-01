@@ -1,4 +1,4 @@
-package com.levibostian.smarteats.adapter;
+package com.levibostian.pantrypirate.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.levibostian.smarteats.R;
-import com.levibostian.smarteats.model.RecipesModel;
+import com.levibostian.pantrypirate.R;
+import com.levibostian.pantrypirate.model.RecipesModel;
 
 public class HomeScreenRecipesAdapter extends ArrayAdapter {
     private Activity mContext;
