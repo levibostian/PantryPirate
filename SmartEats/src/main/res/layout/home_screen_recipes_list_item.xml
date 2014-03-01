@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="70dp"
@@ -27,13 +28,14 @@
         android:background="@color/homescreen_recipe_list_background"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true">
-        <TextView
+        <com.devspark.robototextview.widget.RobotoTextView
             android:id="@+id/recipe_title"
             android:text="Recipe Title"
             android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:typeface="sans"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            app:typeface="roboto_light"/>
     </LinearLayout>
 </RelativeLayout>
