@@ -2,6 +2,7 @@
     <string name="app_name">SmartEats</string>
     <string name="drawer_close">Navigation Drawer Closed</string>
     <string name="drawer_open">Navigation Drawer Opened</string>
+    <string name="recipe_image">Recipe Image</string>
 
     <string-array
         name="navigation_drawer">
