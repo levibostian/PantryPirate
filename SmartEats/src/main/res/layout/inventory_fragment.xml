@@ -32,12 +32,14 @@
     <ListView
         android:id="@+id/inventory_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <RelativeLayout
         android:id="@+id/pantry_bare_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
         <TextView
             android:id="@+id/pantry_bare_textview"
             android:layout_width="match_parent"
