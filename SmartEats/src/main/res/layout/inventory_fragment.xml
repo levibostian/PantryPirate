@@ -38,8 +38,7 @@
     <RelativeLayout
         android:id="@+id/pantry_bare_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp">
+        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/pantry_bare_textview"
             android:layout_width="match_parent"
@@ -57,6 +56,7 @@
             android:gravity="center_horizontal"
             android:layout_height="wrap_content">
             <Button
+                android:id="@+id/add_inventory_item_too"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:paddingLeft="15dp"
@@ -68,6 +68,7 @@
                 android:textSize="12sp"
                 android:layout_marginLeft="20dp"/>
             <Button
+                android:id="@+id/update_shopping_list"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:textSize="12sp"
