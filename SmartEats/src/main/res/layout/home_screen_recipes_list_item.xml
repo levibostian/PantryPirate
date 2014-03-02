@@ -18,10 +18,10 @@
         android:maxHeight="70dp"
         android:contentDescription="@string/recipe_image"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="40dip"
+        android:layout_marginLeft="60dip"
         android:layout_marginTop="30dip"
         android:padding="10dip"
         android:background="@color/homescreen_recipe_list_background"
@@ -35,6 +35,17 @@
             android:layout_height="wrap_content"
             android:typeface="sans"
             android:textSize="18sp"
+            android:lines="2"
+            android:ellipsize="end"
             app:typeface="roboto_light"/>
-    </LinearLayout>
+
+        <RatingBar
+            android:id="@+id/recipe_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            style="@style/recipe_ratingbar"
+            android:numStars="5"/>
+    </RelativeLayout>
 </RelativeLayout>
