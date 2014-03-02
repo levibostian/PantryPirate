@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import com.levibostian.pantrypirate.R;
 import com.levibostian.pantrypirate.adapter.NavigationDrawerAdapter;
 import com.levibostian.pantrypirate.fragment.InventoryFragment;
+import com.levibostian.pantrypirate.fragment.LicensesFragment;
 import com.levibostian.pantrypirate.fragment.MainFragment;
 import com.levibostian.pantrypirate.fragment.RecipesFragment;
 
@@ -113,12 +115,32 @@ public class MainActivity extends ActionBarActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        return super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.licenses:
+                showLicenses();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showLicenses() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new LicensesFragment())
+                .commit();
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu mneu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actionbar_menu, mneu);
+        return true;
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

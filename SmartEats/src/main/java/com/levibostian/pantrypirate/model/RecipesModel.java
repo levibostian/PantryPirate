@@ -8,8 +8,8 @@ import com.levibostian.pantrypirate.R;
 import java.util.ArrayList;
 
 public class RecipesModel {
-    public ArrayList<String> mRecipeTitles;
-    public ArrayList<Bitmap> mRecipeImages;
+    private ArrayList<String> mRecipeTitles;
+    private ArrayList<Bitmap> mRecipeImages;
 
     private Context mContext;
 

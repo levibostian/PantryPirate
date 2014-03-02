@@ -3,4 +3,5 @@
     <color name="navigation_drawer_divider">#FF303030</color>
     <color name="actionbar_color">#FF707070</color>
     <color name="homescreen_recipe_list_background">#FF707070</color>
+    <color name="licenses_url">#FF0099FF</color>
 </resources>
