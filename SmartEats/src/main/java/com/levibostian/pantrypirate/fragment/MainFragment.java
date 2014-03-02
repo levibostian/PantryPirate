@@ -9,9 +9,11 @@ import android.widget.ListView;
 import com.levibostian.pantrypirate.R;
 import com.levibostian.pantrypirate.adapter.HomeScreenRecipesAdapter;
 import com.levibostian.pantrypirate.model.RecipesModel;
+import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 
 public class MainFragment extends Fragment {
     private ListView mRecipeList;
+    private HomeScreenRecipesAdapter mRecipesAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,10 +25,22 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
-        mRecipeList = (ListView) view.findViewById(R.id.recipe_list);
-        mRecipeList.setDivider(null);
-        mRecipeList.setAdapter(new HomeScreenRecipesAdapter(getActivity(), new RecipesModel(getActivity())));
+        setViewItems(view);
 
         return view;
+    }
+
+    private void setViewItems(View view) {
+        mRecipeList = (ListView) view.findViewById(R.id.recipe_list);
+        mRecipeList.setDivider(null);
+        mRecipesAdapter = new HomeScreenRecipesAdapter(getActivity(), new RecipesModel(getActivity()));
+
+        setListViewAnimation();
+    }
+
+    private void setListViewAnimation() {
+        SwingBottomInAnimationAdapter animBottomAdapter = new SwingBottomInAnimationAdapter(mRecipesAdapter);
+        animBottomAdapter.setAbsListView(mRecipeList);
+        mRecipeList.setAdapter(animBottomAdapter);
     }
 }

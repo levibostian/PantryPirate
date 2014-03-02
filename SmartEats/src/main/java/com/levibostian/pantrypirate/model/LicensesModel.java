@@ -16,6 +16,7 @@ public class LicensesModel {
     private void setUpLicenses() {
         mLicenses.add(new License("Android-RobotoTextView", "https://github.com/johnkil/Android-RobotoTextView"));
         mLicenses.add(new License("Tomáš Procházka ImageView", "https://gist.github.com/tprochazka/5486822"));
+        mLicenses.add(new License("ListViewAnimations", "https://github.com/nhaarman/ListViewAnimations"));
     }
 
     public ArrayList<License> getLicenses() {
