@@ -4,9 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:background="#FFCDCDCD"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:background="@color/homescreen_recipes_list_divider"
+    android:paddingBottom="15dp">
 
     <com.levibostian.pantrypirate.view.FitAspectRatioImageView
         android:id="@+id/recipe_image"

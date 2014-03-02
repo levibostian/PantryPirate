@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/recommended_for_you_bar"
+        android:layout_gravity="center_vertical">
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/recipe_title"
+            android:text="RECOMMENDATIONS FOR YOU"
+            android:textColor="#FFEA1B22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:typeface="sans"
+            android:textSize="22sp"
+            android:paddingLeft="20dip"
+            android:layout_gravity="center_vertical"
+            app:typeface="roboto_light"/>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/recipe_list"
