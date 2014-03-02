@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.levibostian.pantrypirate.R;
+import com.levibostian.pantrypirate.model.InventoryModel;
+import com.levibostian.pantrypirate.vo.FoodItem;
 import com.nhaarman.listviewanimations.ArrayAdapter;
 
 public class InventoryListAdapter extends ArrayAdapter {
@@ -14,7 +16,7 @@ public class InventoryListAdapter extends ArrayAdapter {
     private InventoryModel mInventoryModel;
 
     public InventoryListAdapter(Activity context, InventoryModel model) {
-        super(context, R.layout.inventory_list_item, model.getInventory());
+        super(model.getInventory());
 
         mContext = context;
         mInventoryModel = model;
@@ -40,8 +42,9 @@ public class InventoryListAdapter extends ArrayAdapter {
         }
 
         ViewHolder holder = (ViewHolder) rowView.getTag();
-        holder.inventoryItemImage.setImageBitmap(mInventoryModel.getImageBitmap(position));
-        holder.inventoryItemTitle.setText(mInventoryModel.getTitle(position));
+        FoodItem food = mInventoryModel.getFoodItem(position);
+        holder.inventoryItemImage.setImageBitmap(food.getBitmap(mContext));
+        holder.inventoryItemTitle.setText(food.getTitle());
 
         return rowView;
     }

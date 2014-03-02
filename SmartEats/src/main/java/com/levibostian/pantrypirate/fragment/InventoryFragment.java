@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import com.levibostian.pantrypirate.R;
+import com.levibostian.pantrypirate.adapter.InventoryListAdapter;
+import com.levibostian.pantrypirate.model.InventoryModel;
 
 public class InventoryFragment extends Fragment {
     private ListView mInventoryList;
@@ -37,6 +39,6 @@ public class InventoryFragment extends Fragment {
     }
 
     private void populateInventory() {
-
+        mInventoryList.setAdapter(new InventoryListAdapter(getActivity(), new InventoryModel()));
     }
 }

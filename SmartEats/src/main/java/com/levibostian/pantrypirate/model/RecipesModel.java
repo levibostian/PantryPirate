@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.levibostian.pantrypirate.R;
+import com.levibostian.pantrypirate.util.ImageUtil;
 
 import java.util.ArrayList;
 
@@ -64,7 +65,7 @@ public class RecipesModel {
     }
 
     private Bitmap createRecipeBitmap(int resource) {
-        return BitmapFactory.decodeResource(mContext.getResources(), resource);
+        return ImageUtil.createBitmap(resource, mContext);
     }
 
     public Bitmap getRecipeBitmap(int position) {
