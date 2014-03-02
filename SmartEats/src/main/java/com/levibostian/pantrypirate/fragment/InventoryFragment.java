@@ -28,6 +28,8 @@ public class InventoryFragment extends BaseFragment implements EnhancedListView.
     private InventoryListAdapter mAdapter;
     private RelativeLayout mPantryBareView;
 
+    private ArrayList<FoodItem> mNewItemsToAdd;
+
     private static final String ADD_ITEM_DIALOG = "addItemDialog";
 
     private static final int BARCODE_SCAN_INTENT = 0;
@@ -37,6 +39,12 @@ public class InventoryFragment extends BaseFragment implements EnhancedListView.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        setVariables();
+    }
+
+    private void setVariables() {
+        mNewItemsToAdd = new ArrayList<FoodItem>();
     }
 
     @Override
@@ -181,8 +189,21 @@ public class InventoryFragment extends BaseFragment implements EnhancedListView.
         }
     }
 
-    private void addItemToInventory(String foodItem) {
-        mAdapter.add(new FoodItem(foodItem, android.R.drawable.ic_menu_help));
+    private void addItemToInventory(String foodItemText) {
+        if (foodItemText.equals("done")) {
+            addItemsToInventoryList();
+        } else {
+            mNewItemsToAdd.add(new FoodItem(foodItemText, android.R.drawable.ic_menu_help));
+            speechToTextIntent();
+        }
+    }
+
+    private void addItemsToInventoryList() {
+        for (int i = 0; i < mNewItemsToAdd.size(); i++) {
+            mAdapter.add(mNewItemsToAdd.get(i));
+        }
+
+        mNewItemsToAdd = new ArrayList<FoodItem>();
         mAdapter.notifyDataSetChanged();
     }
 
