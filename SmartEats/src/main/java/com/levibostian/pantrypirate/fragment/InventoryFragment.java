@@ -13,7 +13,7 @@ import com.levibostian.pantrypirate.model.InventoryModel;
 import com.levibostian.pantrypirate.vo.FoodItem;
 import de.timroes.android.listview.EnhancedListView;
 
-public class InventoryFragment extends Fragment implements EnhancedListView.OnDismissCallback {
+public class InventoryFragment extends BaseFragment implements EnhancedListView.OnDismissCallback {
     private EnhancedListView mInventoryList;
     private InventoryListAdapter mAdapter;
     private RelativeLayout mPantryBareView;
@@ -42,11 +42,15 @@ public class InventoryFragment extends Fragment implements EnhancedListView.OnDi
     }
 
     private void populateInventory() {
-        mAdapter = new InventoryListAdapter(getActivity(), new InventoryModel());
-        mInventoryList.setAdapter(mAdapter);
+        populateInventoryList();
 
         mInventoryList.setDismissCallback(this);
         mInventoryList.enableSwipeToDismiss();
+    }
+
+    private void populateInventoryList() {
+        mAdapter = new InventoryListAdapter(getActivity(), new InventoryModel());
+        mInventoryList.setAdapter(mAdapter);
     }
 
     private void checkShowInventoryLowView() {
@@ -75,7 +79,10 @@ public class InventoryFragment extends Fragment implements EnhancedListView.OnDi
                 return "Deleted " + item.getTitle();
             }
         };
+    }
 
-
+    @Override
+    public void resetFragmentContent() {
+        populateInventoryList();
     }
 }

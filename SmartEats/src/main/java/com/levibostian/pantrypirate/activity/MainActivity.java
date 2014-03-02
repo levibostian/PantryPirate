@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.levibostian.pantrypirate.R;
 import com.levibostian.pantrypirate.adapter.NavigationDrawerAdapter;
+import com.levibostian.pantrypirate.fragment.BaseFragment;
 import com.levibostian.pantrypirate.fragment.InventoryFragment;
 import com.levibostian.pantrypirate.fragment.LicensesFragment;
 import com.levibostian.pantrypirate.fragment.MainFragment;
@@ -33,6 +34,8 @@ public class MainActivity extends ActionBarActivity {
     private String mTitle;
     private String mDrawerTitle;
 
+    private BaseFragment mCurrentFragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +45,10 @@ public class MainActivity extends ActionBarActivity {
         configureViews();
 
         if (savedInstanceState == null) {
+            mCurrentFragment = new MainFragment();
+
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainFragment())
+                    .add(R.id.container, mCurrentFragment)
                     .commit();
         }
     }
@@ -120,9 +125,16 @@ public class MainActivity extends ActionBarActivity {
             case R.id.licenses:
                 showLicenses();
                 return true;
+            case R.id.reset:
+                resetFragmentContent();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void resetFragmentContent() {
+        mCurrentFragment.resetFragmentContent();
     }
 
     private void showLicenses() {
@@ -168,7 +180,9 @@ public class MainActivity extends ActionBarActivity {
             }
         }
 
-        private void switchFragment(Fragment fragment) {
+        private void switchFragment(BaseFragment fragment) {
+            mCurrentFragment = fragment;
+
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, fragment)
                     .commit();
