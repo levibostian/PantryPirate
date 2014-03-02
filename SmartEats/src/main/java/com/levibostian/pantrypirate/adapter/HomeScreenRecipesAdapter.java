@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.levibostian.pantrypirate.R;
 import com.levibostian.pantrypirate.model.RecipesModel;
 
+import java.util.Random;
+
 public class HomeScreenRecipesAdapter extends ArrayAdapter {
     private Activity mContext;
     private RecipesModel mRecipesModel;
@@ -46,8 +48,19 @@ public class HomeScreenRecipesAdapter extends ArrayAdapter {
         ViewHolder holder = (ViewHolder) rowView.getTag();
         holder.recipeTitle.setText(mRecipesModel.getRecipeTitle(position));
         holder.recipeImage.setImageBitmap(mRecipesModel.getRecipeBitmap(position));
-        holder.recipeRating.setRating((float) 3.0);
+        setRandomRating(holder.recipeRating);
 
         return rowView;
+    }
+
+    private void setRandomRating(RatingBar ratingBar) {
+        Random random = new Random();
+
+        int randInt = random.nextInt(6);
+        if (randInt >= 3) {
+            ratingBar.setRating(randInt);
+        } else {
+            setRandomRating(ratingBar);
+        }
     }
 }
