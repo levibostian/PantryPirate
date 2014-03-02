@@ -77,7 +77,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="appcompat-v7-19.0.1" level="project" />
     <orderEntry type="library" exported="" name="EnhancedListView-0.3.1" level="project" />
-    <orderEntry type="library" exported="" name="1_EnhancedListView-0.3.1" level="project" />
     <orderEntry type="library" exported="" name="robototextview-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="library-2.6.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.0.1" level="project" />

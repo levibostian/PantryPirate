@@ -11,7 +11,7 @@ import com.levibostian.pantrypirate.model.InventoryModel;
 import com.levibostian.pantrypirate.vo.FoodItem;
 import com.nhaarman.listviewanimations.ArrayAdapter;
 
-public class InventoryListAdapter extends ArrayAdapter {
+public class InventoryListAdapter extends ArrayAdapter<FoodItem> {
     private Activity mContext;
     private InventoryModel mInventoryModel;
 

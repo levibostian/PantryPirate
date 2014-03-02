@@ -10,9 +10,12 @@ import android.widget.RelativeLayout;
 import com.levibostian.pantrypirate.R;
 import com.levibostian.pantrypirate.adapter.InventoryListAdapter;
 import com.levibostian.pantrypirate.model.InventoryModel;
+import com.levibostian.pantrypirate.vo.FoodItem;
+import de.timroes.android.listview.EnhancedListView;
 
-public class InventoryFragment extends Fragment {
-    private ListView mInventoryList;
+public class InventoryFragment extends Fragment implements EnhancedListView.OnDismissCallback {
+    private EnhancedListView mInventoryList;
+    private InventoryListAdapter mAdapter;
     private RelativeLayout mPantryBareView;
 
     @Override
@@ -31,14 +34,48 @@ public class InventoryFragment extends Fragment {
     }
 
     private void setViewItems(View view) {
-        mInventoryList = (ListView) view.findViewById(R.id.inventory_list);
+        mInventoryList = (EnhancedListView) view.findViewById(R.id.inventory_list);
         mPantryBareView = (RelativeLayout) view.findViewById(R.id.pantry_bare_view);
 
         populateInventory();
-        // TODO: Have listener watching length of listview. when below level, show pantry view.
+        checkShowInventoryLowView();
     }
 
     private void populateInventory() {
-        mInventoryList.setAdapter(new InventoryListAdapter(getActivity(), new InventoryModel()));
+        mAdapter = new InventoryListAdapter(getActivity(), new InventoryModel());
+        mInventoryList.setAdapter(mAdapter);
+
+        mInventoryList.setDismissCallback(this);
+        mInventoryList.enableSwipeToDismiss();
+    }
+
+    private void checkShowInventoryLowView() {
+        if (mAdapter.size() <= 5) {
+            mPantryBareView.setVisibility(View.VISIBLE);
+        } else {
+            mPantryBareView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public EnhancedListView.Undoable onDismiss(EnhancedListView enhancedListView, final int pos) {
+        final FoodItem item = mAdapter.getItem(pos);
+        mAdapter.remove(pos);
+
+        return new EnhancedListView.Undoable() {
+            @Override
+            public void undo() {
+                mAdapter.add(pos, item);
+                checkShowInventoryLowView();
+            }
+
+            @Override
+            public String getTitle() {
+                checkShowInventoryLowView();
+                return "Deleted " + item.getTitle();
+            }
+        };
+
+
     }
 }
