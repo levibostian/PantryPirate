@@ -128,6 +128,7 @@ public class MainActivity extends ActionBarActivity {
     private void showLicenses() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new LicensesFragment())
+                .addToBackStack(null)
                 .commit();
     }
 
