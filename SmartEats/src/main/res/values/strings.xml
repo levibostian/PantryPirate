@@ -4,11 +4,17 @@
     <string name="drawer_open">Navigation Drawer Opened</string>
     <string name="recipe_image">Recipe Image</string>
     <string name="licenses">Licenses</string>
+    <string name="add_item">Add Item</string>
 
     <string-array
         name="navigation_drawer">
         <item>Home</item>
         <item>Inventory</item>
         <item>Recipes</item>
+    </string-array>
+
+    <string-array name="add_inventory_methods">
+        <item>Scan barcode</item>
+        <item>Speech to text</item>
     </string-array>
 </resources>

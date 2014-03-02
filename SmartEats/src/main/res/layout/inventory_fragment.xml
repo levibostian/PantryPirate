@@ -20,6 +20,7 @@
             android:layout_height="30dp"
             android:hint="search"/>
         <Button
+            android:id="@+id/add_inventory_item"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
