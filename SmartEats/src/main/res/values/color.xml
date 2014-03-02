@@ -6,4 +6,5 @@
     <color name="licenses_url">#FF0099FF</color>
     <color name="recommended_for_you_bar">#FFCDCDCD</color>
     <color name="homescreen_recipes_list_divider">#FFCDCDCD</color>
+    <color name="red_textview">#FFEA1B22</color>
 </resources>
