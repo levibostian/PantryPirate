@@ -98,7 +98,8 @@ public class InventoryFragment extends BaseFragment implements EnhancedListView.
     }
 
     private void promptInventoryAddMethod() {
-        DialogFragment dialog = new AddInventorySelectDialogFragment(this);
+        AddInventorySelectDialogFragment dialog = new AddInventorySelectDialogFragment();
+        dialog.setCallback(this);
         dialog.show(getFragmentManager(), ADD_ITEM_DIALOG);
     }
 

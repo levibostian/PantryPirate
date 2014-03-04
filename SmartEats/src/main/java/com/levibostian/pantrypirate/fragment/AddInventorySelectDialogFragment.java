@@ -21,7 +21,7 @@ public class AddInventorySelectDialogFragment extends DialogFragment {
         public void addInventoryItemMethodSelected(int pos);
     }
 
-    public AddInventorySelectDialogFragment(AddInventoryItemSelectMethodCallback callback) {
+    public void setCallback(AddInventoryItemSelectMethodCallback callback) {
         mCallback = callback;
     }
 
@@ -32,7 +32,11 @@ public class AddInventorySelectDialogFragment extends DialogFragment {
                 .setItems(R.array.add_inventory_methods, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mCallback.addInventoryItemMethodSelected(which);
+                        if (mCallback == null) {
+                            throw new IllegalStateException("AddInventoryItemSelectMethodCallback null. Call setCallback()");
+                        } else {
+                            mCallback.addInventoryItemMethodSelected(which);
+                        }
                     }
                 });
 
