@@ -14,16 +14,21 @@ import android.widget.Toast;
 import com.levibostian.pantrypirate.R;
 import com.levibostian.pantrypirate.adapter.InventoryListAdapter;
 import com.levibostian.pantrypirate.model.InventoryModel;
+import com.levibostian.pantrypirate.task.SearchUpcTask;
+import com.levibostian.pantrypirate.task.UpcSearchTask;
 import com.levibostian.pantrypirate.util.StringUtil;
 import com.levibostian.pantrypirate.vo.FoodItem;
+import com.levibostian.pantrypirate.vo.UpcProduct;
 import de.timroes.android.listview.EnhancedListView;
+import retrofit.RestAdapter;
 
 import java.util.ArrayList;
 
 import static com.levibostian.pantrypirate.fragment.AddInventorySelectDialogFragment.*;
 
 public class InventoryFragment extends BaseFragment implements EnhancedListView.OnDismissCallback,
-                                                               AddInventorySelectDialogFragment.AddInventoryItemSelectMethodCallback {
+                                                               AddInventorySelectDialogFragment.AddInventoryItemSelectMethodCallback,
+                                                               UpcSearchTask.ProductFoundInterface {
     private EnhancedListView mInventoryList;
     private InventoryListAdapter mAdapter;
     private RelativeLayout mPantryBareView;
@@ -176,6 +181,7 @@ public class InventoryFragment extends BaseFragment implements EnhancedListView.
             case BARCODE_SCAN_INTENT:
                 if (resultCode == Activity.RESULT_OK) {
                     String contents = data.getStringExtra("SCAN_RESULT");
+//                    getProductFromUpc(contents);
                 }
                 break;
             case SPEECH_TO_TEXT_INTENT:
@@ -187,6 +193,11 @@ public class InventoryFragment extends BaseFragment implements EnhancedListView.
             default:
                 super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void getProductFromUpc(String upc) {
+        UpcSearchTask task = new UpcSearchTask(this);
+        task.execute(upc);
     }
 
     private void addItemToInventory(String foodItemText) {
@@ -212,5 +223,10 @@ public class InventoryFragment extends BaseFragment implements EnhancedListView.
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
 
         startIntent(intent, SPEECH_TO_TEXT_INTENT);
+    }
+
+    @Override
+    public void productFoundFromUpc(String productName) {
+        Toast.makeText(getActivity(), productName, Toast.LENGTH_LONG).show();
     }
 }
