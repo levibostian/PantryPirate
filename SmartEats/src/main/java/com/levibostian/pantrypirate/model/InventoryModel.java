@@ -20,7 +20,7 @@ public class InventoryModel {
         mInventory.add(new FoodItem("Lettuce", R.drawable.lettuce));
         mInventory.add(new FoodItem("Pineapple", R.drawable.pineapple));
         mInventory.add(new FoodItem("Yogurt", R.drawable.yogurt));
-        mInventory.add(new FoodItem("Apple Sauce", R.drawable.apple_sauce));
+        mInventory.add(new FoodItem("Applesauce", R.drawable.apple_sauce));
         mInventory.add(new FoodItem("Crackers", R.drawable.crackers));
         mInventory.add(new FoodItem("Spaghetti noodles", R.drawable.noodles));
         mInventory.add(new FoodItem("Can of Peas", R.drawable.peas));

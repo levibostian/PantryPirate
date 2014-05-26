@@ -1,27 +1,55 @@
 package com.levibostian.pantrypirate.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.speech.RecognizerIntent;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import com.levibostian.pantrypirate.R;
 import com.levibostian.pantrypirate.adapter.InventoryListAdapter;
 import com.levibostian.pantrypirate.model.InventoryModel;
+import com.levibostian.pantrypirate.task.SearchUpcTask;
+import com.levibostian.pantrypirate.task.UpcSearchTask;
+import com.levibostian.pantrypirate.util.StringUtil;
 import com.levibostian.pantrypirate.vo.FoodItem;
+import com.levibostian.pantrypirate.vo.UpcProduct;
 import de.timroes.android.listview.EnhancedListView;
+import retrofit.RestAdapter;
 
-public class InventoryFragment extends BaseFragment implements EnhancedListView.OnDismissCallback {
+import java.util.ArrayList;
+
+import static com.levibostian.pantrypirate.fragment.AddInventorySelectDialogFragment.*;
+
+public class InventoryFragment extends BaseFragment implements EnhancedListView.OnDismissCallback,
+                                                               AddInventorySelectDialogFragment.AddInventoryItemSelectMethodCallback,
+                                                               UpcSearchTask.ProductFoundInterface {
     private EnhancedListView mInventoryList;
     private InventoryListAdapter mAdapter;
     private RelativeLayout mPantryBareView;
+
+    private ArrayList<FoodItem> mNewItemsToAdd;
+
+    private static final String ADD_ITEM_DIALOG = "addItemDialog";
+
+    private static final int BARCODE_SCAN_INTENT = 0;
+    private static final int SPEECH_TO_TEXT_INTENT = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        setVariables();
+    }
+
+    private void setVariables() {
+        mNewItemsToAdd = new ArrayList<FoodItem>();
     }
 
     @Override
@@ -37,8 +65,42 @@ public class InventoryFragment extends BaseFragment implements EnhancedListView.
         mInventoryList = (EnhancedListView) view.findViewById(R.id.inventory_list);
         mPantryBareView = (RelativeLayout) view.findViewById(R.id.pantry_bare_view);
 
+        setButtonViews(view);
+
         populateInventory();
         checkShowInventoryLowView();
+    }
+
+    private void setButtonViews(View view) {
+        Button addButton = (Button) view.findViewById(R.id.add_inventory_item);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptInventoryAddMethod();
+            }
+        });
+
+        Button addButtonToo = (Button) view.findViewById(R.id.add_inventory_item_too);
+        addButtonToo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptInventoryAddMethod();
+            }
+        });
+
+        Button updateShoppingList = (Button) view.findViewById(R.id.update_shopping_list);
+        updateShoppingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Coming next Start-up Weekend", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void promptInventoryAddMethod() {
+        AddInventorySelectDialogFragment dialog = new AddInventorySelectDialogFragment();
+        dialog.setCallback(this);
+        dialog.show(getFragmentManager(), ADD_ITEM_DIALOG);
     }
 
     private void populateInventory() {
@@ -84,5 +146,88 @@ public class InventoryFragment extends BaseFragment implements EnhancedListView.
     @Override
     public void resetFragmentContent() {
         populateInventoryList();
+    }
+
+    @Override
+    public void addInventoryItemMethodSelected(int pos) {
+        switch (pos) {
+            case SCAN_BARCODE:
+                scanBarcodeIntent();
+                break;
+            case SPEECH_TO_TEXT:
+                speechToTextIntent();
+                break;
+        }
+    }
+
+    private void scanBarcodeIntent() {
+        Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+        intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
+
+        startIntent(intent, BARCODE_SCAN_INTENT);
+    }
+
+    private void startIntent(Intent intent, int code) {
+        try {
+            startActivityForResult(intent, code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Need application to handle request.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case BARCODE_SCAN_INTENT:
+                if (resultCode == Activity.RESULT_OK) {
+                    String contents = data.getStringExtra("SCAN_RESULT");
+//                    getProductFromUpc(contents);
+                }
+                break;
+            case SPEECH_TO_TEXT_INTENT:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    addItemToInventory(StringUtil.stripArrayList(text));
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void getProductFromUpc(String upc) {
+        UpcSearchTask task = new UpcSearchTask(this);
+        task.execute(upc);
+    }
+
+    private void addItemToInventory(String foodItemText) {
+        if (foodItemText.equals("done")) {
+            addItemsToInventoryList();
+        } else {
+            mNewItemsToAdd.add(new FoodItem(foodItemText, android.R.drawable.ic_menu_help));
+            speechToTextIntent();
+        }
+    }
+
+    private void addItemsToInventoryList() {
+        for (int i = 0; i < mNewItemsToAdd.size(); i++) {
+            mAdapter.add(mNewItemsToAdd.get(i));
+        }
+
+        mNewItemsToAdd = new ArrayList<FoodItem>();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void speechToTextIntent() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+
+        startIntent(intent, SPEECH_TO_TEXT_INTENT);
+    }
+
+    @Override
+    public void productFoundFromUpc(String productName) {
+        Toast.makeText(getActivity(), productName, Toast.LENGTH_LONG).show();
     }
 }
