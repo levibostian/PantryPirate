@@ -29,6 +29,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    if (project.hasProperty("PantryPirate.signing")
+       && new File(project.property("PantryPirate.signing") + ".gradle").exists()) {
+        apply from: project.property("PantryPirate.signing") + ".gradle";
+    }
 }
 
 dependencies {
